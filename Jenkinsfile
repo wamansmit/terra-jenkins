@@ -61,19 +61,7 @@ pipeline{
                  sh "trivy image wamansmit/swiggy-clone:latest > trivyimage.txt" 
              }
          }
-          stage('Deploy to Kubernets'){
-             steps{
-                 script{
-                     dir('Kubernetes') {
-                         kubeconfig(credentialsId: 'kubernetes', serverUrl: '') {
-                         sh 'kubectl delete --all pods'
-                         sh 'kubectl apply -f deployment.yml'
-                         sh 'kubectl apply -f service.yml'
-                         }   
-                     }
-                 }
-             }
-         }
+       
 
 
 

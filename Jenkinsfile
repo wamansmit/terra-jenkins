@@ -17,7 +17,7 @@ pipeline{
          }
          stage('Checkout from Git'){
              steps{
-                 git branch: 'main', url: 'https://github.com/Ashfaque-9x/a-swiggy-clone.git'
+                 git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
              }
          }
          stage("Sonarqube Analysis "){
@@ -50,15 +50,15 @@ pipeline{
                  script{
                     withDockerRegistry(credentialsId: 'dockerhub', toolName: 'docker'){   
                         sh "docker build -t swiggy-clone ."
-                        sh "docker tag swiggy-clone ashfaque9x/swiggy-clone:latest "
-                        sh "docker push ashfaque9x/swiggy-clone:latest "
+                        sh "docker tag swiggy-clone wamansmit/swiggy-clone:latest "
+                        sh "docker push wamansmit/swiggy-clone:latest "
                      }
                  }
              }
          }
          stage("TRIVY"){
              steps{
-                 sh "trivy image ashfaque9x/swiggy-clone:latest > trivyimage.txt" 
+                 sh "trivy image wamansmit/swiggy-clone:latest > trivyimage.txt" 
              }
          }
           stage('Deploy to Kubernets'){

@@ -1,33 +1,38 @@
-
 pipeline{
-     agent any
-
-     tools{
-         jdk 'jdk17'
-         maven 'maven'
-     }
-   
-
-     stages {
-         stage('Clean Workspace'){
-             steps{
-                 cleanWs()
-             }
-         }
-         stage('Checkout from Git'){
-             steps{
-                 git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
-             }
-         }
-     stage('build test')
-
-     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true){ 
-
-     steps{
-                 sh 'mvn clean install'
-             }
-          
+    agent any
+    
+    stages{
+        stage("checkout"){
+            steps{
+            echo 'getting source code from GIT'
+            git branch: 'main', url: 
             }
-         
-  }
+                
+            }
+        stage("build"){
+            steps{
+                withMaven(globalMavenSettingsConfig: '', jdk:'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) // in this pipeline add mvn env using syntax generator
+                {
+                 sh "mvn clean install"       // add secure shell command for maven it is also known as maven command block command        
+                          }
+            
+            echo 'building the application'
+            
+            }
+            }
+                
+            
+        stage("test"){
+            steps{
+            echo 'testing the application'
+            }
+                
+            }
+        stage("deploy"){
+            steps{
+            echo 'deployment the application'
+            }
+                
+            }    
+    }
 }

@@ -19,5 +19,10 @@ pipeline{
                  git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
              }
          }
+     stage('build test'){
+             steps{
+                 sh 'mvn clean install'
+             }
+         }
   }
 }

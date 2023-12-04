@@ -16,7 +16,8 @@ pipeline{
                 {
                  sh "mvn clean install"       // add secure shell command for maven it is also known as maven command block command        
                           }
-            
+
+                }
             echo 'building the application'
             
             }

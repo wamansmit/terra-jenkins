@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // checkout code from respective repository
-                git branch: 'main', url: 'https://github.com/smitwaman777/terra-jenkins.git'
+                git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
             }
         }
         

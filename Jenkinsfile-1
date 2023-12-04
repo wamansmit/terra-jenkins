@@ -1,40 +1,50 @@
-pipeline    {
+pipeline {
     agent any
     
-    stages{
-        stage("checkout"){
-            steps{
-            echo 'getting source code from GIT'
-            git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
+    stages {
+        stage('Checkout') {
+            steps {
+                // checkout code from respective repository
+                git branch: 'main', url: 'https://github.com/smitwaman777/project-1-.git'
             }
-                
-            }
+        }
+        
+        stage('Build') {
+            steps{ 
+            withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'maven', mavenSettingsConfig: '', traceability: true)     // define env global setting for maven
+            
+    
 
-        stage("build"){
-            steps{
-                withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
-                
-                 sh "mvn clean install"       // add secure shell command for maven it is also known as maven command block command        
-                          
-                   } 
-                
-            echo 'building the application'
-            
+            {
+                // Use the Maven tool defined in Jenkins to build your project
+                // Make sure you've configured the Maven tool in Jenkins Global Tool Configuration
+                sh 'mvn clean package'
             }
-            
+             }
+            }
+        
+        stage('SonarQube Analysis') {
+            steps {
                 
-            
-        stage("test"){
-            steps{
-            echo 'testing the application'
-            }
                 
+    
+                // Execute SonarQube analysis on your project
+                // Replace 'YourSonarQubeServer' with the name you configured in Jenkins
+                script {
+                    def scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'             // define scanner tool for process
+                    def mavenHome = tool name: 'maven', type: 'hudson.tasks.Maven$MavenInstallation'                        // define maventool for process
+                    
+                    withSonarQubeEnv(credentialsId: 'sonar') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=pipeline \                           // replace it with project key
+                            -Dsonar.sources=src/main \
+                            -Dsonar.java.binaries=target/classes"
+                        
+                    }
+                }
             }
-        stage("deploy"){
-            steps{
-            echo 'deployment the application'
-            }
-             }   
-            }    
+        }
     }
-
+    
+    
+}

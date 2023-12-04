@@ -19,13 +19,15 @@ pipeline{
                  git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
              }
          }
-     stage('build test'){
-     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
+     stage('build test')
+{
+     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) 
+
      steps{
                  sh 'mvn clean install'
              }
           
             }
-         }
+         
   }
 }

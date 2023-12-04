@@ -20,8 +20,8 @@ pipeline{
              }
          }
      stage('build test')
-{
-     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) 
+
+     withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true){ 
 
      steps{
                  sh 'mvn clean install'

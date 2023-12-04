@@ -11,7 +11,7 @@ pipeline {
         
         stage('Build') {
             steps{ 
-            withMaven(globalMavenSettingsConfig: '', jdk: '', maven: 'maven', mavenSettingsConfig: '', traceability: true)     // define env global setting for maven
+            withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true)     // define env global setting for maven
             
     
 

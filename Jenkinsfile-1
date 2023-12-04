@@ -5,7 +5,7 @@ pipeline{
         stage("checkout"){
             steps{
             echo 'getting source code from GIT'
-            git branch: 'main', url: https://github.com/wamansmit/terra-jenkins.git
+            git branch: 'main', url: 'https://github.com/wamansmit/terra-jenkins.git'
             }
                 
             }

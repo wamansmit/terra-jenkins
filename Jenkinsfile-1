@@ -23,25 +23,7 @@ pipeline {
              }
             }
         
-        stage('SonarQube Analysis') {
-            steps {
-                
-                
-    
-                // Execute SonarQube analysis on your project
-                // Replace 'YourSonarQubeServer' with the name you configured in Jenkins
-                script {
-                    def scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'             // define scanner tool for process
-                    def mavenHome = tool name: 'maven', type: 'hudson.tasks.Maven$MavenInstallation'                        // define maventool for process
-                    
-                    withSonarQubeEnv(credentialsId: 'sonar') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=pipeline \                           // replace it with project key
-                            -Dsonar.sources=src/main \
-                            -Dsonar.java.binaries=target/classes"
-                        
-                    }
-                }
+       
             }
         }
     }

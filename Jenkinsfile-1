@@ -11,15 +11,13 @@ pipeline {
         
         stage('Build') {
             steps{ 
-            withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true)     // define env global setting for maven
-            
-    
 
-            {
-                // Use the Maven tool defined in Jenkins to build your project
+withMaven(globalMavenSettingsConfig: '', jdk: 'jdk17', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
+    // Use the Maven tool defined in Jenkins to build your project
                 // Make sure you've configured the Maven tool in Jenkins Global Tool Configuration
                 sh 'mvn clean package'
-            }
+}
+         
              }
             }
         
